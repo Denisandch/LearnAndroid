@@ -13,16 +13,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.navigation.databinding.FragmentCartBinding
 
 
-
-
-
 class CartFragment : Fragment() {
 
-    private lateinit var binding : FragmentCartBinding
+    private lateinit var binding: FragmentCartBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
@@ -31,10 +27,6 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.profile, R.id.favorite, R.id.cart))
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
         binding.carttv.setOnClickListener {
             findNavController().navigate(R.id.action_cart_to_detailCartFragment)

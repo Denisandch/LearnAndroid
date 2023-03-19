@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.example.navigation.databinding.ActivityMainBinding
 import com.example.navigation.databinding.FragmentMainBinding
@@ -29,16 +32,12 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.profile, R.id.favorite, R.id.cart))
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
         binding.mainfr.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+            navController.navigate(R.id.action_mainFragment_to_detailFragment)
         }
-
     }
+
 
 }

@@ -3,58 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/favorite">
+    android:label="FAVORITE"
+    app:startDestination="@id/favorite_navigation">
 
-    <navigation
-        android:id="@+id/profile"
-        app:startDestination="@id/main">
-        <fragment
-            android:id="@+id/main"
-            android:name="com.example.navigation.MainFragment"
-            android:label="fragment_main"
-            tools:layout="@layout/fragment_main">
-            <action
-                android:id="@+id/action_mainFragment_to_detailFragment"
-                app:destination="@id/detail" />
-        </fragment>
-        <fragment
-            android:id="@+id/detail"
-            android:name="com.example.navigation.DetailFragment"
-            android:label="fragment_detail"
-            tools:layout="@layout/fragment_detail" />
-    </navigation>
-    <navigation
-        android:id="@+id/cart"
-        app:startDestination="@id/cartin">
-        <fragment
-            android:id="@+id/cartin"
-            android:name="com.example.navigation.CartFragment"
-            android:label="fragment_cart"
-            tools:layout="@layout/fragment_cart">
-            <action
-                android:id="@+id/action_cart_to_detailCartFragment"
-                app:destination="@id/detailCartFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/detailCartFragment"
-            android:name="com.example.navigation.DetailCartFragment"
-            android:label="fragment_detail_cart"
-            tools:layout="@layout/fragment_detail_cart" />
-    </navigation>
-    <navigation
-        android:id="@+id/favorite"
-        app:startDestination="@id/favorite_inner">
+    <include app:graph="@navigation/cart" />
+    <include app:graph="@navigation/favorite" />
+    <include app:graph="@navigation/profile" />
 
-        <fragment
-            android:id="@+id/favorite_inner"
-            android:name="com.example.navigation.FavoriteFragment"
-            android:label="fragment_favorite"
-            tools:layout="@layout/fragment_favorite" />
 
-        <fragment
-            android:id="@+id/settingsFragment"
-            android:name="com.example.navigation.SettingsFragment"
-            android:label="fragment_settings"
-            tools:layout="@layout/fragment_settings" />
-    </navigation>
 </navigation>

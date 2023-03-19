@@ -2,6 +2,7 @@ package com.example.navigation
 
 import android.os.Bundle
 import android.view.*
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -17,11 +18,6 @@ import com.example.navigation.databinding.FragmentFavoriteBinding
 class FavoriteFragment : Fragment() {
 
     private lateinit var binding: FragmentFavoriteBinding
-    private lateinit var navController: NavController
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,20 +26,6 @@ class FavoriteFragment : Fragment() {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.profile, R.id.favorite, R.id.cart))
-        navController = findNavController()
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-
-        binding.toolbar.setOnMenuItemClickListener {
-            it.onNavDestinationSelected(navController)
-        }
-    }
-
-
 
 
 }

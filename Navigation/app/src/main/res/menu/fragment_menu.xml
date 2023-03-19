@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:menuCategory="secondary"
         android:id="@+id/settingsFragment"
         android:icon="@drawable/baseline_settings_24"
+        android:menuCategory="secondary"
         android:title="settings"
         app:showAsAction="always" />
 </menu>
