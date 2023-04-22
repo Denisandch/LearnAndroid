@@ -6,27 +6,26 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.jupiter.api.AfterEach
 import org.mockito.Mockito
-import org.mockito.Mockito.mock
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 
 class SaveUserUseCaseTest {
 
-    val userRepositiry = mock<UserRepository>()
+    val userRepository = mock<UserRepository>()
 
     @AfterEach
     fun tearDown() {
-        Mockito.reset(userRepositiry)
+        Mockito.reset(userRepository)
     }
 
     @Test
     fun shouldNotSaveDataIfUserExist() {
 
-        val useCase = SaveUserUseCase(repository = userRepositiry)
+        val useCase = SaveUserUseCase(repository = userRepository)
 
         val testData = User("Denis", "Samolovov")
 
-        Mockito.`when`(userRepositiry.getUser()).thenReturn(testData)
+        Mockito.`when`(userRepository.getUser()).thenReturn(testData)
         val actual = useCase.saveUser(testData)
         val expected = false
 
@@ -35,25 +34,25 @@ class SaveUserUseCaseTest {
 
     @Test
     fun shouldNotCallSaveIfExist() {
-        val useCase = SaveUserUseCase(repository = userRepositiry)
+        val useCase = SaveUserUseCase(repository = userRepository)
 
         val testData = User("Denis", "Samolovov")
 
-        Mockito.`when`(userRepositiry.getUser()).thenReturn(testData)
+        Mockito.`when`(userRepository.getUser()).thenReturn(testData)
         useCase.saveUser(testData)
 
-        Mockito.verify(userRepositiry, Mockito.never()).saveUser(user = any())
+        Mockito.verify(userRepository, Mockito.never()).saveUser(user = any())
     }
 
     @Test
     fun mustToSaveUserIfNotExist() {
-        val useCase = SaveUserUseCase(repository = userRepositiry)
+        val useCase = SaveUserUseCase(repository = userRepository)
 
         val testDataExist = User("", "")
         val testDataNew = User("Denis", "Samolovov")
 
-        Mockito.`when`(userRepositiry.getUser()).thenReturn(testDataExist)
-        Mockito.`when`(userRepositiry.saveUser(testDataNew)).thenReturn(true)
+        Mockito.`when`(userRepository.getUser()).thenReturn(testDataExist)
+        Mockito.`when`(userRepository.saveUser(testDataNew)).thenReturn(true)
 
         val actual = useCase.saveUser(testDataNew)
         val expected = true
