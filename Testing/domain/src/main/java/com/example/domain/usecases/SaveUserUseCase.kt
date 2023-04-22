@@ -6,7 +6,12 @@ import com.example.domain.repository.UserRepository
 class SaveUserUseCase(
     private val repository: UserRepository
 ) {
-    fun saveUser(user: User) {
-        repository.saveUser(user)
+    fun saveUser(user: User): Boolean {
+
+        val oldUser = repository.getUser()
+
+        if (oldUser.name == user.name) return false
+
+        return repository.saveUser(user)
     }
 }

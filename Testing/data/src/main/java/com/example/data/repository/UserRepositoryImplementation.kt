@@ -9,8 +9,9 @@ import com.example.domain.repository.UserRepository
 class UserRepositoryImplementation(
     private val storage: UserStorage
 ) : UserRepository {
-    override fun saveUser(user: User) {
+    override fun saveUser(user: User): Boolean {
         storage.saveUser(user.toUserData())
+        return true
     }
 
     override fun getUser(): User {
