@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    def koin_version = "3.1.0"
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
@@ -58,4 +59,7 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
 
     implementation "androidx.paging:paging-runtime:3.1.1"
+
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
 }
