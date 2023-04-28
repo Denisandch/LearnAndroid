@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.pagingtest.adapters.UserAdapter
 import com.example.pagingtest.databinding.ActivityMainBinding
+import com.example.pagingtest.room.User
 import com.example.pagingtest.room.UserDao
 import com.example.pagingtest.room.UserDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private val sharedViewModel by viewModel<AppViewModel>()
 
-   lateinit var userDao: UserDao
+    lateinit var userDao: UserDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +39,10 @@ class MainActivity : AppCompatActivity() {
 //            getAllUsersDESC()
 //        }
 
+
 //        CoroutineScope(Dispatchers.IO).launch {
-//            for (i in 0..1001000) {
-//                userDao.addUser(User(0, name = "Denis $i"))
+//            for (i in 0..10000) {
+//                userDao.addUser(User(0, name = "${10000 - i}"))
 //
 //                Log.i("cor", "$i")
 //            }
@@ -53,15 +55,15 @@ class MainActivity : AppCompatActivity() {
             sharedViewModel.users.collectLatest(adapter::submitData)
         }
 
-        getAllUsersDESC()
+        //getAllUsersDESC()
     }
 
-    fun getAllUsersDESC() {
-        CoroutineScope(Dispatchers.IO).launch {
-            var users = userDao.getAllUsersDESC()
-            Log.i("lst", "${users.size}")
-        }
-    }
+//    fun getAllUsersDESC() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            var users = userDao.getAllUsersDESC()
+//            Log.i("lst", "${users.size}")
+//        }
+//    }
 
 //    fun getAllUsersASC() {
 //        CoroutineScope(Dispatchers.IO).launch {

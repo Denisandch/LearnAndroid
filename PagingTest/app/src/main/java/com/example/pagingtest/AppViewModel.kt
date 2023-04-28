@@ -17,9 +17,8 @@ class AppViewModel(
     private val userPageSource: UserPageSource
 ) : ViewModel() {
 
-
     val users: StateFlow<PagingData<User>> = Pager<Int, User>(
-        PagingConfig(pageSize = 50),
+        PagingConfig(pageSize = 30, initialLoadSize = 30),
     ) {
         userPageSource
     }.flow.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
