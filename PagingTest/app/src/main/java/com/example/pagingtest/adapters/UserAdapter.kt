@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pagingtest.R
 import com.example.pagingtest.databinding.OneUserItemBinding
-import com.example.pagingtest.room.User
+import com.example.pagingtest.model.User
 
 class UserAdapter(
     context: Context
@@ -26,11 +26,11 @@ class UserAdapter(
     }
 }
 
-class UserViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val viewBinding = OneUserItemBinding.bind(itemView)
 
     fun bind(user: User?) {
-        user?.let{
+        user?.let {
             viewBinding.id.text = user.id.toString()
             viewBinding.name.text = user.name
         }
@@ -38,7 +38,7 @@ class UserViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     }
 }
 
-private object UserDiffItemCallback: DiffUtil.ItemCallback<User>() {
+private object UserDiffItemCallback : DiffUtil.ItemCallback<User>() {
     override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem == newItem
     }

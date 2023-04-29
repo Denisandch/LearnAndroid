@@ -5,15 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
-import com.example.pagingtest.UserPageSource.UserPageSource
 import com.example.pagingtest.UserService.UserService
-import com.example.pagingtest.room.User
+import com.example.pagingtest.model.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 const val DEFAULT_FILTER = "id"
+
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class AppViewModel(
     private val userService: UserService
@@ -25,7 +24,6 @@ class AppViewModel(
 
     init {
         users = filter.asFlow()
-            .debounce(500)
             .flatMapLatest {
                 userService.getAllUsersById(it)
             }

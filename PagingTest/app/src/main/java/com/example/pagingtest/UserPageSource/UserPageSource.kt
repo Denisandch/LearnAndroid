@@ -4,8 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.pagingtest.UserService.UserService
-import com.example.pagingtest.room.User
+import com.example.pagingtest.model.User
 import com.example.pagingtest.room.UserDao
 import com.example.pagingtest.room.UserDatabase
 
@@ -29,7 +28,7 @@ class UserPageSource(
 
         return try {
             Log.i("sdf", filter)
-            val response = if(filter == "name") {
+            val response = if (filter == "name") {
                 userDao.getAllUsersByName(pageSize, page * pageSize)
             } else {
                 userDao.getAllUsersById(pageSize, page * pageSize)

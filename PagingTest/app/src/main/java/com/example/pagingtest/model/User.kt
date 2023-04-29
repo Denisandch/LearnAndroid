@@ -1,4 +1,4 @@
-package com.example.pagingtest.room
+package com.example.pagingtest.model
 
 import android.os.Parcelable
 import androidx.room.Entity

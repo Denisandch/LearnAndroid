@@ -2,10 +2,8 @@ package com.example.pagingtest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.pagingtest.adapters.UserAdapter
 import com.example.pagingtest.databinding.ActivityMainBinding
-import com.example.pagingtest.room.User
 import com.example.pagingtest.room.UserDao
 import com.example.pagingtest.room.UserDatabase
 import kotlinx.coroutines.CoroutineScope

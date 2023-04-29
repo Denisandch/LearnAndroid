@@ -1,8 +1,7 @@
 package com.example.pagingtest.room
 
-import android.database.sqlite.SQLiteQuery
 import androidx.room.*
-import java.sql.SQLInput
+import com.example.pagingtest.model.User
 
 @Dao
 interface UserDao {
