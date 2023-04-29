@@ -31,23 +31,6 @@ class MainActivity : AppCompatActivity() {
         userDao = UserDatabase.getDatabase(application).userDao()
         adapter = UserAdapter(this)
 
-//        binding.asc.setOnClickListener {
-//            getAllUsersASC()
-//        }
-
-//        binding.desc.setOnClickListener {
-//            getAllUsersDESC()
-//        }
-
-
-//        CoroutineScope(Dispatchers.IO).launch {
-//            for (i in 0..10000) {
-//                userDao.addUser(User(0, name = "${10000 - i}"))
-//
-//                Log.i("cor", "$i")
-//            }
-//        }
-
         binding.userRecycler.adapter = adapter
 
 
@@ -55,20 +38,16 @@ class MainActivity : AppCompatActivity() {
             sharedViewModel.users.collectLatest(adapter::submitData)
         }
 
-        //getAllUsersDESC()
+
+        binding.asc.setOnClickListener {
+            sharedViewModel.setFilter("name")
+            binding.userRecycler.scrollToPosition(0)
+        }
+
+        binding.desc.setOnClickListener {
+            sharedViewModel.setFilter("id")
+            binding.userRecycler.scrollToPosition(0)
+        }
     }
 
-//    fun getAllUsersDESC() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            var users = userDao.getAllUsersDESC()
-//            Log.i("lst", "${users.size}")
-//        }
-//    }
-
-//    fun getAllUsersASC() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            var users = userDao.getAllUsersASC()
-//            Log.i("lst", "${users.size}")
-//        }
-//    }
 }

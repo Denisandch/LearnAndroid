@@ -1,7 +1,9 @@
 package com.example.pagingtest.UserService
 
+import androidx.paging.PagingData
 import com.example.pagingtest.room.User
+import kotlinx.coroutines.flow.Flow
 
 interface UserService {
-    suspend fun getAllUsersById(limit: Int, offset: Int): List<User>
+    fun getAllUsersById(filter: String): Flow<PagingData<User>>
 }

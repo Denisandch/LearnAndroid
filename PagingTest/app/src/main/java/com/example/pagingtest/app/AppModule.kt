@@ -17,7 +17,7 @@ val appModule = module {
 
     viewModel<AppViewModel> {
         AppViewModel(
-            userPageSource = UserPageSource(userService = get())
+            userService = get()
         )
     }
 
