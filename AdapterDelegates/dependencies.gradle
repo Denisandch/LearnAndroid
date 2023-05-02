@@ -1,0 +1,8 @@
+ext.versions = [
+        adapterDelegates: '4.3.2'
+]
+
+ext.libs = [
+        adapterDelegates       : "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$versions.adapterDelegates",
+        adapterDelegatesBinding: "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$versions.adapterDelegates"
+]
