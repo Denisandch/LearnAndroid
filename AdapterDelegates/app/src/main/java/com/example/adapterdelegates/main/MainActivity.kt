@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             adapter.apply {
                 items = listOf(
                     HorizontalItemList(listOfItemsHorizontal),
+                    HorizontalItemList(listOfItemsVertical),
+                    HorizontalItemList(listOfItemsHorizontal),
                     HorizontalItemList(listOfItemsVertical)
                 )
                 notifyDataSetChanged()

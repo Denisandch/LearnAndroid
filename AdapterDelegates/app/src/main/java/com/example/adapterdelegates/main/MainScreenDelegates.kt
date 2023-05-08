@@ -7,14 +7,15 @@ import com.example.adapterdelegates.databinding.ItemVerticalBinding
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-
-
 object MainScreenDelegates {
     val cardsHorizontalDelegate = adapterDelegateViewBinding<HorizontalItemList, ListItem, HorizontalListOneBinding>(
         { inflater, container -> HorizontalListOneBinding.inflate(inflater, container, false) }
     ) {
         bind {
-            binding.horizontalRecycler.adapter = HorizontalAdapter
+            binding.horizontalRecycler.adapter = ListDelegationAdapter(
+                horizontalItemDelegate,
+                verticalItemDelegate
+            )
             (binding.horizontalRecycler.adapter as ListDelegationAdapter<List<ListItem>>).apply {
                 items = item.items
                 notifyDataSetChanged()
@@ -23,7 +24,7 @@ object MainScreenDelegates {
         }
     }
 
-    val horizontalItemDelegate = adapterDelegateViewBinding<HorizontalOneItem, ListItem, ItemHorizontalBinding>(
+    private val horizontalItemDelegate = adapterDelegateViewBinding<HorizontalOneItem, ListItem, ItemHorizontalBinding>(
         { inflater, container -> ItemHorizontalBinding.inflate(inflater, container, false) }
     ) {
         bind {
@@ -32,7 +33,7 @@ object MainScreenDelegates {
         }
     }
 
-    val verticalItemDelegate = adapterDelegateViewBinding<VerticalOneItem, ListItem, ItemVerticalBinding>(
+    private val verticalItemDelegate = adapterDelegateViewBinding<VerticalOneItem, ListItem, ItemVerticalBinding>(
         { inflater, container -> ItemVerticalBinding.inflate(inflater, container, false) }
     ) {
         bind {
@@ -41,8 +42,4 @@ object MainScreenDelegates {
         }
     }
 
-    private val HorizontalAdapter = ListDelegationAdapter(
-        MainScreenDelegates.horizontalItemDelegate,
-        MainScreenDelegates.verticalItemDelegate
-    )
 }
