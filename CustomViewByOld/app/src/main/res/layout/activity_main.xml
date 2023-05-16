@@ -10,8 +10,6 @@
         android:id="@+id/custom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:buttonBackground="@color/purple_200"
-
         app:textViewText="Кастомное вью"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

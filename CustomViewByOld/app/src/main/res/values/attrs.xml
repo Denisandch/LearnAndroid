@@ -10,4 +10,6 @@
         <attr name="textViewText" format="string" />
 
     </declare-styleable>
+
+    <attr name="defaultStyleAttr" format="reference"/>
 </resources>

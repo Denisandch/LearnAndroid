@@ -31,8 +31,8 @@ class CustomItem(
             return binding.button.text.toString()
         }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, R.style.CustomViewStyleDefaultStyle)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, R.attr.defaultStyleAttr)
     constructor(context: Context) : this(context, null)
 
     init {

@@ -12,5 +12,20 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="defaultStyleAttr">@style/CustomViewStyleDefaultAttr</item>
+    </style>
+
+
+    <style name="CustomViewStyle" >
+        <item name="buttonBackground">@color/design_default_color_secondary_variant</item>
+    </style>
+
+    <style name="CustomViewStyleDefaultAttr" parent="CustomViewStyle" >
+        <item name="buttonBackground">#DF3A3A</item>
+    </style>
+
+    <style name="CustomViewStyleDefaultStyle" parent="CustomViewStyle" >
+        <item name="buttonBackground">#48E4EA</item>
     </style>
 </resources>
