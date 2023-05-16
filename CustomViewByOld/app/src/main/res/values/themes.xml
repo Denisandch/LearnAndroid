@@ -25,7 +25,7 @@
         <item name="buttonBackground">#DF3A3A</item>
     </style>
 
-    <style name="CustomViewStyleDefaultStyle" parent="CustomViewStyle" >
+    <style name="CustomViewStyleDefaultRes" parent="CustomViewStyle" >
         <item name="buttonBackground">#48E4EA</item>
     </style>
 </resources>
