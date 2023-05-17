@@ -14,12 +14,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.custom.setListeners {
-            if (it == BottomButtonAction.BUTTON) {
-                binding.custom.buttonText = "Новый текст"
-                Toast.makeText(this, binding.custom.buttonText, Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Text", Toast.LENGTH_SHORT).show()
+        with(binding) {
+            customFirst.setButtonListener {
+                customFirst.buttonText = "Новый текст"
+                Toast.makeText(
+                    this@MainActivity,
+                    binding.customFirst.buttonText,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            customFirst.setTextViewListener {
+                customFirst.textViewText = "Новый текст"
+                Toast.makeText(
+                    this@MainActivity,
+                    binding.customFirst.buttonText,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

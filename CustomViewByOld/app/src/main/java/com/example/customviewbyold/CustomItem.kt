@@ -9,22 +9,17 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.customviewbyold.databinding.CustomItemBinding
 
-enum class BottomButtonAction {
-    BUTTON, TEXT
-}
 
-typealias OnBottomButtonsActionListener = (BottomButtonAction) -> Unit
+typealias OnBottomButtonsActionListener = () -> Unit
 
 class CustomItem(
     context: Context,
     attrs: AttributeSet?,
     defStyleAttr: Int,
     defStyleRes: Int,
-) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
+) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes), CustomItemListeners {
 
     private val binding: CustomItemBinding
-
-    private var listener: OnBottomButtonsActionListener? = null
 
     var buttonText: String?
         set(value) {
@@ -60,7 +55,6 @@ class CustomItem(
         inflater.inflate(R.layout.custom_item, this, true)
         binding = CustomItemBinding.bind(this)
         initializeAttributes(attrs, defStyleAttr, defStyleRes)
-        initializeListener()
     }
 
     private fun initializeAttributes(attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
@@ -83,18 +77,14 @@ class CustomItem(
         typedArray.recycle()
     }
 
-    private fun initializeListener() {
-        binding.button.setOnClickListener {
-            this.listener?.invoke(BottomButtonAction.BUTTON)
-        }
-        binding.text.setOnClickListener {
-            this.listener?.invoke(BottomButtonAction.TEXT)
-        }
+    override fun setButtonListener(listener: OnBottomButtonsActionListener) {
+        binding.button.setOnClickListener { listener.invoke() }
     }
 
-    fun setListeners(listener: OnBottomButtonsActionListener) {
-        this.listener = listener
+    override fun setTextViewListener(listener: OnBottomButtonsActionListener) {
+        binding.text.setOnClickListener { listener.invoke() }
     }
+
 
     override fun onSaveInstanceState(): Parcelable {
         val superState = super.onSaveInstanceState()!!
@@ -112,7 +102,7 @@ class CustomItem(
         textViewText = savedState.textViewText
     }
 
-    class SavedState : BaseSavedState {
+    private class SavedState : BaseSavedState {
 
         var buttonText: String? = null
         var textViewText: String? = null
