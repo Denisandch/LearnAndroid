@@ -14,6 +14,8 @@
         <!-- Customize your theme here. -->
 
         <item name="defaultStyleAttr">@style/CustomViewStyleDefaultAttr</item>
+
+        <item name="ticTacToeFieldStyle">@style/GlobalTicTacToeStyle</item>
     </style>
 
 
@@ -28,4 +30,17 @@
     <style name="CustomViewStyleDefaultRes" parent="CustomViewStyle" >
         <item name="buttonBackground">#48E4EA</item>
     </style>
+
+
+    <style name="DefaultTicTacToeStyle">
+        <item name="playerFirstColor">#8C0A8A</item>
+        <item name="playerSecondColor">#207C05</item>
+        <item name="gridColor">#000000</item>
+    </style>
+
+    <style name="GlobalTicTacToeStyle" parent="DefaultTicTacToeStyle">
+        <item name="playerFirstColor">#0446B6</item>
+        <item name="playerSecondColor">#C30000</item>
+    </style>
+
 </resources>

@@ -3,7 +3,7 @@
     <declare-styleable name="CustomItem">
 
         <attr name="buttonText" format="string" />
-        <attr name="buttonBackground" format="color"/>
+        <attr name="buttonBackground" format="color" />
 
         <attr name="progressMod" format="boolean" />
 
@@ -11,5 +11,15 @@
 
     </declare-styleable>
 
-    <attr name="defaultStyleAttr" format="reference"/>
+    <attr name="defaultStyleAttr" format="reference" />
+
+    <declare-styleable name="TicTacToeView">
+        <attr name="playerFirstColor" format="color"/>
+        <attr name="playerSecondColor" format="color"/>
+        <attr name="gridColor" format="color"/>
+
+
+    </declare-styleable>
+
+    <attr name="ticTacToeFieldStyle" format="reference"/>
 </resources>
