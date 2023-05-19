@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmrepeat.databinding.ActivityMainBinding
 import com.example.mvvmrepeat.model.User
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private val usersService: UsersService
         get() = (applicationContext as App).usersService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -35,11 +37,19 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, user.name, Toast.LENGTH_SHORT).show()
             }
 
+            override fun onUserFire(user: User) {
+                usersService.fireUser(user)
+            }
+
         })
 
         val layoutManager = LinearLayoutManager(this)
         binding.recycler.layoutManager = layoutManager
         binding.recycler.adapter = adapter
+        val itemAnimator = binding.recycler.itemAnimator
+        if (itemAnimator is DefaultItemAnimator) {
+            itemAnimator.supportsChangeAnimations = false
+        }
 
         usersService.addListener(usersListener)
     }

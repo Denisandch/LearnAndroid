@@ -1,6 +1,7 @@
 package com.example.mvvmrepeat.model
 
 import com.github.javafaker.Faker
+import java.util.ArrayList
 import java.util.Collections
 
 typealias UsersListener = (users: List<User>) -> Unit
@@ -31,7 +32,10 @@ class UsersService {
     fun deleteUser(user: User) {
         val removeIndex = users.indexOfFirst { it.id == user.id }
         if (removeIndex == -1) return
+
+        users = ArrayList(users)
         users.removeAt(removeIndex)
+
         notifyChanges()
     }
 
@@ -41,7 +45,19 @@ class UsersService {
         val newIndex = oldIndex + moveBy
         if (newIndex < 0 || newIndex >= users.size) return
 
+        users = ArrayList(users)
         Collections.swap(users, oldIndex, newIndex)
+        notifyChanges()
+    }
+
+    fun fireUser(user: User) {
+        val fireIndex = users.indexOfFirst { it.id == user.id }
+        if (fireIndex == -1) return
+
+        val newUser = users[fireIndex].copy(company = "")
+
+        users = ArrayList(users)
+        users[fireIndex] = newUser
         notifyChanges()
     }
 
