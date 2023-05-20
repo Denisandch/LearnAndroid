@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="?android:attr/selectableItemBackground"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/image_view_avatar"
@@ -54,6 +54,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_item"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/button_more"
+        app:layout_constraintEnd_toEndOf="@id/button_more"
+        app:layout_constraintStart_toStartOf="@id/button_more"
+        app:layout_constraintTop_toTopOf="@id/button_more" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"

@@ -11,4 +11,6 @@
     <string name="try_again">try again</string>
     <string name="no_users">No Users</string>
     <string name="user_deleted">User was deleted succesfully</string>
+    <string name="cant_load_user_details">Failed load details</string>
+    <string name="cant_delete_user">Deleting fail</string>
 </resources>

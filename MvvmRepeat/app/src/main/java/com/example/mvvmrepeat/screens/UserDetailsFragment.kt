@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.mvvmrepeat.R
 import com.example.mvvmrepeat.databinding.FragmentUserDetailsBinding
-import com.example.mvvmrepeat.databinding.FragmentUserListBinding
 
 class UserDetailsFragment : Fragment() {
 
@@ -29,7 +28,7 @@ class UserDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
 
-        viewModel.userDetails.observe(viewLifecycleOwner) {
+        viewModel.state.observe(viewLifecycleOwner) {
             binding.textViewUserName.text = it.user.name
             binding.textViewDescription.text = it.details
             if (it.user.photo.isNotBlank()) {
