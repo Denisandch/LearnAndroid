@@ -1,5 +1,6 @@
 package com.example.mvvmrepeat.model
 
+import com.example.mvvmrepeat.UserNotFoundException
 import com.github.javafaker.Faker
 import java.util.ArrayList
 import java.util.Collections
@@ -27,6 +28,15 @@ class UsersService {
 
     fun getUsers(): List<User> {
         return users
+    }
+
+    fun getById(id: Long): UserDetails {
+        val user = users.firstOrNull {it.id == id} ?: throw UserNotFoundException()
+
+        return UserDetails(
+            user = user,
+            details = Faker.instance().lorem().paragraphs(3).joinToString("\n\n")
+        )
     }
 
     fun deleteUser(user: User) {
