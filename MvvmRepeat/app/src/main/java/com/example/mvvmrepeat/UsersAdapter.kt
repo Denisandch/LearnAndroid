@@ -56,8 +56,8 @@ class UsersAdapter(
             holder.itemView.tag = user
             buttonMore.tag = user
 
-            if(userListItem.isInProgress) {
-                buttonMore.visibility = View.GONE
+            if (userListItem.isInProgress) {
+                buttonMore.visibility = View.INVISIBLE
                 progressBarItem.visibility = View.VISIBLE
                 holder.binding.root.setOnClickListener(null)
             } else {
