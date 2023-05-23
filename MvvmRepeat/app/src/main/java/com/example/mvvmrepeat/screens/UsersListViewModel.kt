@@ -2,6 +2,8 @@ package com.example.mvvmrepeat.screens
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.mvvmrepeat.R
+import com.example.mvvmrepeat.UserActionListener
 import com.example.mvvmrepeat.model.User
 import com.example.mvvmrepeat.model.UsersListener
 import com.example.mvvmrepeat.model.UsersService
@@ -18,10 +20,16 @@ data class UserListItem(
 
 class UsersListViewModel(
     private val usersService: UsersService
-) : BaseViewModel() {
+) : BaseViewModel(), UserActionListener {
 
     private val _users = MutableLiveData<Result<List<UserListItem>>>()
     val users: LiveData<Result<List<UserListItem>>> = _users
+
+    private val _actionShowDetails = MutableLiveData<Event<User>>()
+    val actionShowDetails: LiveData<Event<User>> = _actionShowDetails
+
+    private val _actionShowToast = MutableLiveData<Event<Int>>()
+    val actionShowToast: LiveData<Event<Int>> = _actionShowToast
 
     private val userIdsInProgress = mutableSetOf<Long>()
     private var userResult: Result<List<User>> = EmptyResult()
@@ -57,33 +65,6 @@ class UsersListViewModel(
             .autoCancel()
     }
 
-    fun moveUser(user: User, moveBy: Int) {
-        if (isInProgress(user)) return
-        addProgressTo(user)
-        usersService.moveUser(user, moveBy)
-            .onSuccess {
-                removeProgressFrom(user)
-            }
-            .onError { removeProgressFrom(user) }
-            .autoCancel()
-    }
-
-    fun deleteUser(user: User) {
-        if (isInProgress(user)) return
-        addProgressTo(user)
-        usersService.deleteUser(user)
-            .onSuccess {
-                removeProgressFrom(user)
-            }
-            .onError {
-                removeProgressFrom(user)
-            }
-            .autoCancel()
-    }
-
-    fun fireUser(user: User) {
-        usersService.fireUser(user)
-    }
 
     private fun addProgressTo(user: User) {
         userIdsInProgress.add(user.id)
@@ -103,6 +84,42 @@ class UsersListViewModel(
         _users.postValue(userResult.map { users ->
             users.map { user -> UserListItem(user, isInProgress(user)) }
         })
+    }
+
+    override fun onUserMove(user: User, moveBy: Int) {
+        if (isInProgress(user)) return
+        addProgressTo(user)
+        usersService.moveUser(user, moveBy)
+            .onSuccess {
+                removeProgressFrom(user)
+            }
+            .onError {
+                removeProgressFrom(user)
+                _actionShowToast.value = Event(R.string.cant_move_user)
+            }
+            .autoCancel()
+    }
+
+    override fun onUserDelete(user: User) {
+        if (isInProgress(user)) return
+        addProgressTo(user)
+        usersService.deleteUser(user)
+            .onSuccess {
+                removeProgressFrom(user)
+            }
+            .onError {
+                removeProgressFrom(user)
+                _actionShowToast.value = Event(R.string.cant_delete_user)
+            }
+            .autoCancel()
+    }
+
+    override fun onUserDetails(user: User) {
+        _actionShowDetails.value = Event(user)
+    }
+
+    override fun onUserFire(user: User) {
+        usersService.fireUser(user)
     }
 
 }

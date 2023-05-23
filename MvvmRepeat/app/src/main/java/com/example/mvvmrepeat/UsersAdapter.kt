@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mvvmrepeat.databinding.ItemUserBinding
 import com.example.mvvmrepeat.model.User
+import com.example.mvvmrepeat.screens.UserListItem
 
 interface UserActionListener {
     fun onUserMove(user: User, moveBy: Int)
@@ -25,7 +26,7 @@ class UsersAdapter(
     private val usersListener: UserActionListener
 ) : RecyclerView.Adapter<UsersViewHolder>(), View.OnClickListener {
 
-    var users = listOf<User>()
+    var users = listOf<UserListItem>()
         set(value) {
             val diffCallback = UsersDiffCallback(field, value)
             val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -37,7 +38,6 @@ class UsersAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemUserBinding.inflate(inflater, parent, false)
 
-        binding.root.setOnClickListener(this)
         binding.buttonMore.setOnClickListener(this)
 
         return UsersViewHolder(binding)
@@ -48,11 +48,23 @@ class UsersAdapter(
     }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        val user = users[position]
+        val userListItem = users[position]
+        val user = userListItem.user
         val context = holder.itemView.context
+
         with(holder.binding) {
             holder.itemView.tag = user
             buttonMore.tag = user
+
+            if(userListItem.isInProgress) {
+                buttonMore.visibility = View.GONE
+                progressBarItem.visibility = View.VISIBLE
+                holder.binding.root.setOnClickListener(null)
+            } else {
+                buttonMore.visibility = View.VISIBLE
+                progressBarItem.visibility = View.GONE
+                holder.binding.root.setOnClickListener(this@UsersAdapter)
+            }
 
             textViewCompany.text =
                 if (user.company.isNotBlank()) user.company else context.getText(R.string.unemployed)
@@ -89,7 +101,7 @@ class UsersAdapter(
         val context = view.context
         val popupMenu = PopupMenu(view.context, view)
         val user = view.tag as User
-        val position = users.indexOfFirst { user.id == it.id }
+        val position = users.indexOfFirst { it.user.id == user.id }
 
         popupMenu.menu.add(0, ID_MOVE_UP, Menu.NONE, context.getString(R.string.move_up)).apply {
             isEnabled = position > 0
@@ -125,18 +137,18 @@ class UsersAdapter(
 }
 
 class UsersDiffCallback(
-    private val oldList: List<User>,
-    private val newList: List<User>
+    private val oldList: List<UserListItem>,
+    private val newList: List<UserListItem>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].id == newList[newItemPosition].id
+        return oldList[oldItemPosition].user.id == newList[newItemPosition].user.id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        return oldList[oldItemPosition].isInProgress == newList[newItemPosition].isInProgress
     }
 
 }

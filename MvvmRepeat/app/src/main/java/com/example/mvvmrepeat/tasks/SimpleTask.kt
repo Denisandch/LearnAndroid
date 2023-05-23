@@ -1,11 +1,13 @@
 package com.example.mvvmrepeat.tasks
 
-
 import android.os.Looper
 import android.os.Handler
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
+
+
+/**promise*/
 
 private val executorService = Executors.newCachedThreadPool()
 private val handler = Handler(Looper.getMainLooper())

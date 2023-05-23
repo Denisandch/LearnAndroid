@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -13,6 +14,10 @@ import com.example.mvvmrepeat.UsersAdapter
 import com.example.mvvmrepeat.databinding.FragmentUserListBinding
 import com.example.mvvmrepeat.model.User
 import com.example.mvvmrepeat.model.UsersListener
+import com.example.mvvmrepeat.tasks.EmptyResult
+import com.example.mvvmrepeat.tasks.ErrorResult
+import com.example.mvvmrepeat.tasks.PendingResult
+import com.example.mvvmrepeat.tasks.SuccessResult
 
 class UserListFragment : Fragment() {
 
@@ -27,27 +32,40 @@ class UserListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUserListBinding.inflate(inflater, container, false)
-        adapter = UsersAdapter(object : UserActionListener {
-            override fun onUserMove(user: User, moveBy: Int) {
-                viewModel.moveUser(user, moveBy)
-            }
-
-            override fun onUserDelete(user: User) {
-                viewModel.deleteUser(user)
-            }
-
-            override fun onUserDetails(user: User) {
-                navigator().showDetails(user)
-            }
-
-            override fun onUserFire(user: User) {
-                viewModel.fireUser(user)
-            }
-
-        })
+        adapter = UsersAdapter(viewModel)
 
         viewModel.users.observe(viewLifecycleOwner) {
-            adapter.users = it
+            hideAll()
+            when (it) {
+                is SuccessResult -> {
+                    binding.recycler.visibility = View.VISIBLE
+                    adapter.users = it.data
+                }
+
+                is ErrorResult -> {
+                    binding.containerTryAgain.visibility = View.VISIBLE
+                }
+
+                is PendingResult -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
+                is EmptyResult -> {
+                    binding.textViewNoUsers.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        viewModel.actionShowDetails.observe(viewLifecycleOwner){
+            it.getValue()?.let{
+                user ->navigator().showDetails(user)
+            }
+        }
+
+        viewModel.actionShowToast.observe(viewLifecycleOwner){
+            it.getValue()?.let{
+                    messageRes -> navigator().toast(messageRes)
+            }
         }
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -61,4 +79,12 @@ class UserListFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun hideAll() {
+        binding.recycler.visibility = View.GONE
+        binding.containerTryAgain.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+        binding.textViewNoUsers.visibility = View.GONE
+    }
+
 }

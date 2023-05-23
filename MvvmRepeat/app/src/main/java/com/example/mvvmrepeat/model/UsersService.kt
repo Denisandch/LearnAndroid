@@ -66,16 +66,17 @@ class UsersService {
         notifyChanges()
     })
 
-    fun fireUser(user: User) {
+    fun fireUser(user: User): Task<Unit> = SimpleTask(Callable {
+        Thread.sleep(2000)
         val fireIndex = users.indexOfFirst { it.id == user.id }
-        if (fireIndex == -1) return
+        if (fireIndex == -1) return@Callable
 
         val newUser = users[fireIndex].copy(company = "")
 
         users = ArrayList(users)
         users[fireIndex] = newUser
         notifyChanges()
-    }
+    })
 
     fun addListener(listener: UsersListener) {
         listeners.add(listener)

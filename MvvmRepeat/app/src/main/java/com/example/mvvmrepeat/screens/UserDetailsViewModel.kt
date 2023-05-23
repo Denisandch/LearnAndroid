@@ -7,7 +7,9 @@ import com.example.mvvmrepeat.model.UserDetails
 import com.example.mvvmrepeat.model.UsersService
 import com.example.mvvmrepeat.tasks.EmptyResult
 import com.example.mvvmrepeat.tasks.PendingResult
+import com.example.mvvmrepeat.tasks.Result
 import com.example.mvvmrepeat.tasks.SuccessResult
+
 
 class UserDetailsViewModel(
     private val usersService: UsersService
@@ -63,7 +65,6 @@ class UserDetailsViewModel(
             }
             .autoCancel()
     }
-
     data class State(
         val userDetailsResult: Result<UserDetails>,
         private val deletingInProgress: Boolean
